@@ -1,6 +1,8 @@
 # Kaffeine
 
-![Kaffeine Logo](https://github.com/BolajiOlajide/kaffeine/blob/main/assets/screenshot.png?raw=true)  <!-- If you have a logo for the project, you can insert its path here. -->
+**This project is in Beta. Updates will have to be done manually for now.**
+
+![Kaffeine Logo](https://github.com/BolajiOlajide/kaffeine/blob/main/assets/screenshot.png?raw=true)
 
 ## Description
 
