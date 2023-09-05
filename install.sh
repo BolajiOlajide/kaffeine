@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-VERSION="0.0.1"
+VERSION="0.0.11"
 
 # Detect OS
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
