@@ -42,7 +42,7 @@ jobs:
           ref: main
       - name: Update version in install script
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           git config --local user.email "25608335+BolajiOlajide@users.noreply.github.com"
           git config --local user.name "BolajiOlajide"
