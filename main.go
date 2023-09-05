@@ -1,57 +1,18 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"net/http"
-	"net/url"
 	"os"
 	"os/signal"
-	"strings"
 	"syscall"
 	"time"
 )
 
-// URLs is a custom flag type that accumulates URL values.
-type URLs []string
-
-func (v *URLs) String() string {
-	return strings.Join(*v, ", ")
-}
-
-func (v *URLs) Set(value string) error {
-	*v = append(*v, value)
-	return nil
-}
-
-func (v URLs) Validate() error {
-	if len(v) == 0 {
-		return errors.New("no urls provided")
-	}
-
-	for _, u := range v {
-		parsedURL, err := url.Parse(u)
-		if err != nil {
-			return err
-		}
-
-		// Check if the URL has a valid scheme (http or https)
-		if parsedURL.Scheme != "http" && parsedURL.Scheme != "https" {
-			return fmt.Errorf("invalid scheme %q in URL %q", parsedURL.Scheme, u)
-		}
-
-		// Check if the URL has a host
-		if parsedURL.Host == "" {
-			return fmt.Errorf("URL %q missing host", u)
-		}
-	}
-
-	return nil
-}
-
 var (
-	verbose = flag.Bool("v", true, "print verbose output")
+	verbose  = flag.Bool("v", true, "print verbose output")
+	interval = flag.Int("interval", 60, "check interval (in seconds)")
 
 	urls URLs
 )
@@ -67,9 +28,9 @@ func main() {
 	}
 
 	maybePrint(infoStyle.Render("initializing kaffeine..."))
-	// Create a ticker that ticks every 5 minutes
-	// ticker := time.NewTicker(5 * time.Minute)
-	ticker := time.NewTicker(5 * time.Second)
+
+	// Create a ticker
+	ticker := time.NewTicker(time.Duration(*interval) * time.Second)
 	defer ticker.Stop()
 
 	// Create a channel to listen for interrupt signals (Ctrl+C)
