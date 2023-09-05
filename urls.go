@@ -19,6 +19,10 @@ func (v *URLs) Set(value string) error {
 	return nil
 }
 
+func (v URLs) Len() int {
+	return len(v)
+}
+
 func (v URLs) Validate() error {
 	if len(v) == 0 {
 		return errors.New("no urls provided")
