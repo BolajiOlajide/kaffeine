@@ -24,7 +24,7 @@ Kaffeine is a lightweight, efficient, and reliable library designed to keep your
 Here's a quick start guide to get Kaffeine running:
 
 ```sh
-kaffeine -url https://www.example.com -interval 300
+kaffeine -url https://www.example.com -interval 60
 ```
 
 ## Contributing
