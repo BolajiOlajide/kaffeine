@@ -32,24 +32,3 @@ jobs:
 
       - name: Print the version
         run: echo "New version is ${{ steps.get_version.outputs.version }}"
-
-  releaseUpdate:
-    runs-on: ubuntu-latest
-    needs: goreleaser
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: main
-      - name: Update version in install script
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-          git config --local user.email "25608335+BolajiOlajide@users.noreply.github.com"
-          git config --local user.name "BolajiOlajide"
-
-          NEW_VERSION=${{ needs.goreleaser.outputs.newVersion }}
-          sed -i "4s/VERSION=\"[0-9]*\.[0-9]*\.[0-9]*\"/VERSION=\"$NEW_VERSION\"/" install.sh
-
-          git add install.sh
-          git commit -m "Update version"
-          git push origin main
