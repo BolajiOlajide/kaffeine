@@ -8,9 +8,12 @@ on:
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
+    outputs:
+      newVersion: ${{ steps.get_version.outputs.version }}
     steps:
       - uses: actions/checkout@v3
         with:
+          ref: main
           fetch-depth: 0
       - run: git fetch --force --tags
       - uses: actions/setup-go@v4
@@ -25,17 +28,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       - name: Get the version
         id: get_version
-        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/}"
+        run: |
+          echo "version=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
 
       - name: Print the version
         run: echo "New version is ${{ steps.get_version.outputs.version }}"
 
+  releaseUpdate:
+    runs-on: ubuntu-latest
+    needs: goreleaser
+    steps:
+      - uses: actions/checkout@v3
       - name: Update version in install script
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          NEW_VERSION=${{ steps.get_version.outputs.version }}
+          NEW_VERSION=${{ needs.goreleaser.outputs.newVersion }}
           sed -i "4s/VERSION=\"[0-9]*\.[0-9]*\.[0-9]*\"/VERSION=\"$NEW_VERSION\"/" install.sh
 
           git add install.sh
