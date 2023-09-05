@@ -43,7 +43,7 @@ func main() {
 		case <-ticker.C:
 			ping()
 		case <-sigChan:
-			fmt.Println(infoStyle.Render("Program interrupted!"))
+			fmt.Println(errorStyle.Render("Program interrupted!"))
 			return
 		}
 	}
