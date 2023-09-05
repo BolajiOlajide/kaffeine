@@ -16,7 +16,7 @@ Kaffeine is a lightweight, efficient, and reliable library designed to keep your
 ## Installation
 
 ```bash
-# TODO: Update with link to install
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/BolajiOlajide/kaffeine/main/install.sh)"
 ```
 
 ## Usage
