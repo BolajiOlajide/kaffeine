@@ -40,4 +40,4 @@ jobs:
 
           git add install.sh
           git commit -m "Update version"
-          git push origin head
+          git push origin main
