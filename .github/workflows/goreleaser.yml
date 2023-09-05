@@ -41,6 +41,8 @@ jobs:
         with:
           ref: main
       - name: Update version in install script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
