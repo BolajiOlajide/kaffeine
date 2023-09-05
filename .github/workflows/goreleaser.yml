@@ -38,6 +38,6 @@ jobs:
           NEW_VERSION=${{ steps.get_version.outputs.version }}
           sed -i "4s/VERSION=\"[0-9]*\.[0-9]*\.[0-9]*\"/VERSION=\"$NEW_VERSION\"/" install.sh
 
-          git add timestamp.txt
+          git add install.sh
           git commit -m "Update version"
           git push origin head
