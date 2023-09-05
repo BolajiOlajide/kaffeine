@@ -1,7 +1,3 @@
-# This is the main configuration for goreleaser, which builds and publishes a new latest
-# release. It updates the main formula in the Homebrew tap. It should match
-# .goreleaser-patch.yml in every way except for the brews.name template and the
-# dockers.image_templates list.
 dist: release
 env:
   - GO111MODULE=on
@@ -10,16 +6,12 @@ before:
   hooks:
     - go mod download
     - go mod tidy
-    - go generate ./schema
 builds:
 -
-  main: ./cmd/src/
-  binary: src
-  ldflags:
-    - -X github.com/sourcegraph/src-cli/internal/version.BuildTag={{.Version}}
+  main: .
+  binary: kaffeine
   goos:
     - linux
-    - windows
     - darwin
   goarch:
     - amd64
@@ -30,7 +22,7 @@ archives:
 - id: bin
   format: binary
   wrap_in_directory: false
-  name_template: "src_{{ .Os }}_{{ .Arch }}"
+  name_template: "kaffeine_{{ .Os }}_{{ .Arch }}"
 brews:
   -
     name: src-cli
