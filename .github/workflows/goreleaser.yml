@@ -44,8 +44,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "25608335+BolajiOlajide@users.noreply.github.com"
+          git config --local user.name "BolajiOlajide"
 
           NEW_VERSION=${{ needs.goreleaser.outputs.newVersion }}
           sed -i "4s/VERSION=\"[0-9]*\.[0-9]*\.[0-9]*\"/VERSION=\"$NEW_VERSION\"/" install.sh
