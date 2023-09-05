@@ -13,7 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: main
           fetch-depth: 0
       - run: git fetch --force --tags
       - uses: actions/setup-go@v4
@@ -39,6 +38,8 @@ jobs:
     needs: goreleaser
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: main
       - name: Update version in install script
         run: |
           git config --local user.email "action@github.com"
