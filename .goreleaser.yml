@@ -23,30 +23,6 @@ archives:
   format: binary
   wrap_in_directory: false
   name_template: "kaffeine_{{ .Os }}_{{ .Arch }}"
-brews:
-  -
-    name: src-cli
-    homepage: "https://sourcegraph.com/"
-    description: "Sourcegraph CLI"
-    repository:
-      owner: sourcegraph
-      name: homebrew-src-cli
-    # Folder inside the repository to put the formula.
-    # Default is the root folder.
-    folder: Formula
-    # We need to set this so that goreleaser doesn't think the binary is called
-    # `src-cli`
-    install: |
-      bin.install "src"
-    ids:
-      - tarball
-dockers:
-  - dockerfile: Dockerfile.release
-    image_templates:
-    - "sourcegraph/src-cli:{{ .Tag }}"
-    - "sourcegraph/src-cli:{{ .Major }}"
-    - "sourcegraph/src-cli:{{ .Major }}.{{ .Minor }}"
-    - "sourcegraph/src-cli:latest"
 changelog:
   sort: asc
   filters:
