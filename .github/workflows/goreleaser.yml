@@ -2,8 +2,8 @@ name: Build and Release
 
 on:
   push:
-    tags:	
-      - '*'
+    tags:
+      - "*"
 
 jobs:
   goreleaser:
@@ -23,3 +23,21 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      - name: Get the version
+        id: get_version
+        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/v}"
+
+      - name: Print the version
+        run: echo "New version is ${{ steps.get_version.outputs.version }}"
+
+      - name: Update version in install script
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          NEW_VERSION=${{ steps.get_version.outputs.version }}
+          sed -i "4s/VERSION=\"[0-9]*\.[0-9]*\.[0-9]*\"/VERSION=\"$NEW_VERSION\"/" install.sh
+
+          git add timestamp.txt
+          git commit -m "Update version"
+          git push origin head
