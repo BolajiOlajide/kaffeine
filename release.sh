@@ -16,7 +16,7 @@ git tag "${VERSION}" -a -m "release v${VERSION}"
 # We use `--atomic` so that we push the tag and the commit if the commit was or wasn't pushed before
 git push --atomic origin main "${VERSION}"
 
-sed -i "4s/VERSION=\"[0-9]*\.[0-9]*\.[0-9]*\"/VERSION=\"$NEW_VERSION\"/" install.sh
+sed -i "4s/VERSION=\"[0-9]*\.[0-9]*\.[0-9]*\"/VERSION=\"${VERSION}\"/" install.sh
 
 git add install.sh
 git commit -m "update: ${VERSION}"
